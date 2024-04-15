@@ -1,0 +1,28 @@
+// Grupos de Lista
+
+// scss-docs-start list-group-mixin
+@mixin list-group-item-variant($state, $background, $color) {
+  // Define as propriedades de cor e fundo para os diferentes estados dos itens da lista
+  .list-group-item-#{$state} {
+    color: $color;
+    background-color: $background;
+
+    // Define estilos adicionais para itens de ação na lista
+    &.list-group-item-action {
+      // Define estilos para hover e foco nos itens de ação
+      &:hover,
+      &:focus {
+        color: $color;
+        background-color: shade-color($background, 10%);
+      }
+
+      // Define estilos para itens ativos na lista
+      &.active {
+        color: $white;
+        background-color: $color;
+        border-color: $color;
+      }
+    }
+  }
+}
+// scss-docs-end list-group-mixin

@@ -1,0 +1,41 @@
+@if $enable-grid-classes {
+  // Classe de container única com larguras máximas definidas por breakpoints
+  .container,
+  // Container de largura total em todos os breakpoints
+  .container-fluid {
+    @include make-container();
+    // Inclui um mixin para criar os estilos do container
+  }
+
+  // Containers responsivos que ocupam 100% de largura até atingir um breakpoint
+  @each $breakpoint, $container-max-width in $container-max-widths {
+    .container-#{$breakpoint} {
+      @extend .container-fluid;
+      // Estende as propriedades do container fluido para os containers responsivos
+    }
+
+    @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+      // Define as larguras máximas dos containers responsivos para cada breakpoint
+      %responsive-container-#{$breakpoint} {
+        max-width: $container-max-width;
+      }
+
+      // Estende cada breakpoint que é menor ou igual ao breakpoint atual
+      $extend-breakpoint: true;
+
+      @each $name, $width in $grid-breakpoints {
+        @if ($extend-breakpoint) {
+          // Estende o container responsivo para cada breakpoint menor ou igual ao atual
+          .container#{breakpoint-infix($name, $grid-breakpoints)} {
+            @extend %responsive-container-#{$breakpoint};
+          }
+
+          // Quando o breakpoint atual é atingido, para de estender
+          @if ($breakpoint == $name) {
+            $extend-breakpoint: false;
+          }
+        }
+      }
+    }
+  }
+}

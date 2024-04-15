@@ -1,0 +1,45 @@
+// scss-docs-start import-stack
+// Configuração
+@import "functions"; // Importa funções necessárias
+@import "variables"; // Importa variáveis necessárias
+@import "mixins"; // Importa mixins para funcionalidades adicionais
+@import "utilities"; // Importa utilitários para estilos reutilizáveis
+
+// Layout e componentes
+@import "root"; // Importa estilos raiz
+@import "reboot"; // Importa reinicialização de estilos
+@import "type"; // Importa estilos de tipografia
+@import "images"; // Importa estilos de imagens
+@import "containers"; // Importa estilos de contêineres
+@import "grid"; // Importa estilos de grade
+@import "tables"; // Importa estilos de tabelas
+@import "forms"; // Importa estilos de formulários
+@import "buttons"; // Importa estilos de botões
+@import "transitions"; // Importa estilos de transições
+@import "dropdown"; // Importa estilos de dropdowns
+@import "button-group"; // Importa estilos de grupos de botões
+@import "nav"; // Importa estilos de navegação
+@import "navbar"; // Importa estilos de barras de navegação
+@import "card"; // Importa estilos de cartões
+@import "accordion"; // Importa estilos de acordeões
+@import "breadcrumb"; // Importa estilos de breadcrumbs
+@import "pagination"; // Importa estilos de paginação
+@import "badge"; // Importa estilos de distintivos (badges)
+@import "alert"; // Importa estilos de alertas
+@import "progress"; // Importa estilos de barras de progresso
+@import "list-group"; // Importa estilos de listas agrupadas
+@import "close"; // Importa estilos de fechar
+@import "toasts"; // Importa estilos de toasts
+@import "modal"; // Importa estilos de modais
+@import "tooltip"; // Importa estilos de tooltips
+@import "popover"; // Importa estilos de popovers
+@import "carousel"; // Importa estilos de carrosséis
+@import "spinners"; // Importa estilos de spinners
+@import "offcanvas"; // Importa estilos de offcanvas
+
+// Auxiliares
+@import "helpers"; // Importa helpers para ajudar no desenvolvimento
+
+// Utilitários
+@import "utilities/api"; // Importa a API de utilitários para funcionalidades específicas
+// scss-docs-end import-stack

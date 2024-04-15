@@ -1,0 +1,170 @@
+//
+// Check/radio
+//
+
+/* Define o estilo para a classe .form-check, usada para agrupar elementos de input do tipo checkbox e radio */
+.form-check {
+  display: block; /* Mostra os elementos como blocos */
+  min-height: $form-check-min-height; /* Define a altura mínima para o bloco */
+  padding-left: $form-check-padding-start; /* Define o preenchimento à esquerda */
+  margin-bottom: $form-check-margin-bottom; /* Define a margem inferior */
+  
+  /* Estiliza os elementos de input dentro de .form-check */
+  .form-check-input {
+    float: left; /* Faz com que os inputs fiquem alinhados à esquerda */
+    margin-left: $form-check-padding-start * -1; /* Alinha os inputs à esquerda corretamente */
+  }
+}
+
+/* Estiliza os elementos de input dentro da classe .form-check */
+.form-check-input {
+  width: $form-check-input-width; /* Define a largura do input */
+  height: $form-check-input-width; /* Define a altura do input */
+  margin-top: ($line-height-base - $form-check-input-width) / 2; /* Calcula o espaçamento superior com base na altura do input */
+  vertical-align: top; /* Alinha o input na parte superior */
+  background-color: $form-check-input-bg; /* Define a cor de fundo do input */
+  background-repeat: no-repeat; /* Impede a repetição do background */
+  background-position: center; /* Centraliza o background */
+  background-size: contain; /* Define o tamanho do background */
+  border: $form-check-input-border; /* Define a borda do input */
+  appearance: none; /* Define que a aparência padrão será ignorada */
+  color-adjust: exact; /* Mantém a aparência temática para impressão */
+  @include transition($form-check-transition); /* Aplica uma transição suave */
+
+  /* Estilos específicos para inputs do tipo checkbox */
+  &[type="checkbox"] {
+    @include border-radius($form-check-input-border-radius); /* Define o raio das bordas para checkboxes */
+  }
+
+  /* Estilos específicos para inputs do tipo radio */
+  &[type="radio"] {
+    // stylelint-disable-next-line property-disallowed-list
+    border-radius: $form-check-radio-border-radius; /* Define o raio das bordas para radios */
+  }
+
+  &:active {
+    filter: $form-check-input-active-filter; /* Aplica um filtro ao input quando está ativo */
+  }
+
+  &:focus {
+    border-color: $form-check-input-focus-border; /* Define a cor da borda quando o input está focado */
+    outline: 0; /* Remove o contorno padrão do foco */
+    box-shadow: $form-check-input-focus-box-shadow; /* Define a sombra quando o input está focado */
+  }
+
+  /* Estilos quando o input está marcado */
+  &:checked {
+    background-color: $form-check-input-checked-bg-color; /* Define a cor de fundo quando o input está marcado */
+    border-color: $form-check-input-checked-border-color; /* Define a cor da borda quando o input está marcado */
+
+    /* Estilos específicos para inputs do tipo checkbox */
+    &[type="checkbox"] {
+      @if $enable-gradients {
+        background-image: escape-svg($form-check-input-checked-bg-image), var(--#{$variable-prefix}gradient); /* Define a imagem de fundo para checkboxes marcados */
+      } @else {
+        background-image: escape-svg($form-check-input-checked-bg-image); /* Define a imagem de fundo para checkboxes marcados */
+      }
+    }
+
+    /* Estilos específicos para inputs do tipo radio */
+    &[type="radio"] {
+      @if $enable-gradients {
+        background-image: escape-svg($form-check-radio-checked-bg-image), var(--#{$variable-prefix}gradient); /* Define a imagem de fundo para radios marcados */
+      } @else {
+        background-image: escape-svg($form-check-radio-checked-bg-image); /* Define a imagem de fundo para radios marcados */
+      }
+    }
+  }
+
+  /* Estilos quando o input está indeterminado */
+  &[type="checkbox"]:indeterminate {
+    background-color: $form-check-input-indeterminate-bg-color; /* Define a cor de fundo quando o input está indeterminado */
+    border-color: $form-check-input-indeterminate-border-color; /* Define a cor da borda quando o input está indeterminado */
+
+    @if $enable-gradients {
+      background-image: escape-svg($form-check-input-indeterminate-bg-image), var(--#{$variable-prefix}gradient); /* Define a imagem de fundo para inputs indeterminados */
+    } @else {
+      background-image: escape-svg($form-check-input-indeterminate-bg-image); /* Define a imagem de fundo para inputs indeterminados */
+    }
+  }
+
+  /* Estilos quando o input está desabilitado */
+  &:disabled {
+    pointer-events: none; /* Desativa eventos do mouse */
+    filter: none; /* Remove o filtro */
+    opacity: $form-check-input-disabled-opacity; /* Define a opacidade quando o input está desabilitado */
+  }
+
+  // Use disabled attribute in addition of :disabled pseudo-class
+  // See: https://github.com/twbs/bootstrap/issues/28247
+  &[disabled],
+  &:disabled {
+    ~ .form-check-label {
+      opacity: $form-check-label-disabled-opacity; /* Define a opacidade das etiquetas quando o input está desabilitado */
+    }
+  }
+}
+
+/* Estiliza as etiquetas dentro da classe .form-check */
+.form-check-label {
+  color: $form-check-label-color; /* Define a cor do texto das etiquetas */
+  cursor: $form-check-label-cursor; /* Define o cursor para as etiquetas */
+}
+
+//
+// Switch
+//
+
+/* Define estilos para a classe .form-switch, usada para switches */
+.form-switch {
+  padding-left: $form-switch-padding-start; /* Define o preenchimento à esquerda para switches */
+
+  /* Estiliza os inputs dentro de .form-switch */
+  .form-check-input {
+    width: $form-switch-width; /* Define a largura do input */
+    margin-left: $form-switch-padding-start * -1; /* Alinha o input à esquerda */
+    background-image: escape-svg($form-switch-bg-image); /* Define a imagem de fundo para switches */
+    background-position: left center; /* Define a posição do background */
+    @include border-radius($form-switch-border-radius); /* Define o raio das bordas */
+    @include transition($form-switch-transition); /* Aplica uma transição suave */
+
+    /* Estilos quando o input está focado */
+    &:focus {
+      background-image: escape-svg($form-switch-focus-bg-image); /* Define a imagem de fundo quando o input está focado */
+    }
+
+    /* Estilos quando o input está marcado */
+    &:checked {
+      background-position: $form-switch-checked-bg-position; /* Define a posição do background quando o input está marcado */
+
+      @if $enable-gradients {
+        background-image: escape-svg($form-switch-checked-bg-image), var(--#{$variable-prefix}gradient); /* Define a imagem de fundo quando o input está marcado */
+      } @else {
+        background-image: escape-svg($form-switch-checked-bg-image); /* Define a imagem de fundo quando o input está marcado */
+      }
+    }
+  }
+}
+
+/* Define estilos para a classe .form-check-inline, usada para exibir elementos inline */
+.form-check-inline {
+  display: inline-block; /* Exibe os elementos inline */
+  margin-right: $form-check-inline-margin-end; /* Define a margem direita */
+}
+
+/* Define estilos para a classe .btn-check, usada para estilizar botões dentro de checks */
+.btn-check {
+  position: absolute; /* Define a posição absoluta */
+  clip: rect(0, 0, 0, 0); /* Define a área de recorte */
+  pointer-events: none; /* Desativa eventos do mouse */
+
+  /* Estilos para botões desabilitados */
+  &[disabled],
+  &:disabled {
+    + .btn {
+      pointer-events: none; /* Desativa eventos do mouse */
+      filter: none; /* Remove o filtro */
+      opacity: $form-check-btn-check-disabled-opacity; /* Define a opacidade */
+    }
+  }
+}

@@ -1,0 +1,29 @@
+// Classe base
+//
+// Requer uma das classes de modificadores contextuais de cor para `color` e
+// `background-color`.
+
+.badge {
+  display: inline-block;
+  padding: $badge-padding-y $badge-padding-x;
+  @include font-size($badge-font-size);
+  font-weight: $badge-font-weight;
+  line-height: 1;
+  color: $badge-color;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  @include border-radius($badge-border-radius);
+  @include gradient-bg();
+
+  // Os distintivos vazios colapsam automaticamente
+  &:empty {
+    display: none;
+  }
+}
+
+// Correção rápida para distintivos em botões
+.btn .badge {
+  position: relative;
+  top: -1px;
+}

@@ -1,0 +1,37 @@
+//
+// Labels
+//
+
+/* Define estilos para rótulos */
+.form-label {
+  margin-bottom: $form-label-margin-bottom; /* Define a margem inferior */
+  @include font-size($form-label-font-size); /* Define o tamanho da fonte */
+  font-style: $form-label-font-style; /* Define o estilo da fonte */
+  font-weight: $form-label-font-weight; /* Define o peso da fonte */
+  color: $form-label-color; /* Define a cor do texto */
+}
+
+// Para uso com formulários horizontais e inline, quando você precisa que o rótulo (ou legenda)
+// alinhe o texto com os controles do formulário.
+.col-form-label {
+  padding-top: add($input-padding-y, $input-border-width); /* Define o preenchimento superior */
+  padding-bottom: add($input-padding-y, $input-border-width); /* Define o preenchimento inferior */
+  margin-bottom: 0; /* Substitui o padrão `<legend>` */
+  @include font-size(inherit); /* Substitui o padrão `<legend>` */
+  font-style: $form-label-font-style; /* Define o estilo da fonte */
+  font-weight: $form-label-font-weight; /* Define o peso da fonte */
+  line-height: $input-line-height; /* Define a altura da linha */
+  color: $form-label-color; /* Define a cor do texto */
+}
+
+.col-form-label-lg {
+  padding-top: add($input-padding-y-lg, $input-border-width); /* Define o preenchimento superior */
+  padding-bottom: add($input-padding-y-lg, $input-border-width); /* Define o preenchimento inferior */
+  @include font-size($input-font-size-lg); /* Define o tamanho da fonte */
+}
+
+.col-form-label-sm {
+  padding-top: add($input-padding-y-sm, $input-border-width); /* Define o preenchimento superior */
+  padding-bottom: add($input-padding-y-sm, $input-border-width); /* Define o preenchimento inferior */
+  @include font-size($input-font-size-sm); /* Define o tamanho da fonte */
+}

@@ -1,0 +1,91 @@
+// Range
+//
+// Estiliza inputs do tipo range de forma consistente em todos os navegadores. Regras específicas do fornecedor para pseudo-elementos
+// não podem ser misturadas. Portanto, não há estilos compartilhados para estados de foco ou ativos em seletores prefixados.
+
+/* Define estilos para inputs do tipo range */
+.form-range {
+  width: 100%; /* Define a largura como 100% */
+  height: add($form-range-thumb-height, $form-range-thumb-focus-box-shadow-width * 2); /* Define a altura */
+  padding: 0; /* Redefine o preenchimento */
+  background-color: transparent; /* Define a cor de fundo como transparente */
+  appearance: none; /* Define que a aparência padrão será ignorada */
+
+  &:focus {
+    outline: 0; /* Remove o contorno padrão do foco */
+
+    // Os pseudo-elementos devem ser divididos em múltiplos conjuntos de regras para terem efeito.
+    // Sem mixin box-shadow() para acessibilidade de foco.
+    &::-webkit-slider-thumb { box-shadow: $form-range-thumb-focus-box-shadow; } /* Define a sombra do polegar para o foco */
+    &::-moz-range-thumb     { box-shadow: $form-range-thumb-focus-box-shadow; } /* Define a sombra do polegar para o foco */
+  }
+
+  &::-moz-focus-outer {
+    border: 0; /* Remove a borda */
+  }
+
+  &::-webkit-slider-thumb {
+    width: $form-range-thumb-width; /* Define a largura do polegar */
+    height: $form-range-thumb-height; /* Define a altura do polegar */
+    margin-top: ($form-range-track-height - $form-range-thumb-height) / 2; /* Define a margem superior */
+    @include gradient-bg($form-range-thumb-bg); /* Aplica gradiente ao background */
+    border: $form-range-thumb-border; /* Define a borda do polegar */
+    @include border-radius($form-range-thumb-border-radius); /* Define o raio das bordas */
+    @include box-shadow($form-range-thumb-box-shadow); /* Aplica sombra */
+    @include transition($form-range-thumb-transition); /* Aplica uma transição suave */
+    appearance: none; /* Define que a aparência padrão será ignorada */
+
+    &:active {
+      @include gradient-bg($form-range-thumb-active-bg); /* Aplica gradiente ao background quando ativo */
+    }
+  }
+
+  &::-webkit-slider-runnable-track {
+    width: $form-range-track-width; /* Define a largura da trilha */
+    height: $form-range-track-height; /* Define a altura da trilha */
+    color: transparent; /* Define a cor do texto como transparente */
+    cursor: $form-range-track-cursor; /* Define o cursor */
+    background-color: $form-range-track-bg; /* Define a cor de fundo */
+    border-color: transparent; /* Define a cor da borda como transparente */
+    @include border-radius($form-range-track-border-radius); /* Define o raio das bordas */
+    @include box-shadow($form-range-track-box-shadow); /* Aplica sombra */
+  }
+
+  &::-moz-range-thumb {
+    width: $form-range-thumb-width; /* Define a largura do polegar */
+    height: $form-range-thumb-height; /* Define a altura do polegar */
+    @include gradient-bg($form-range-thumb-bg); /* Aplica gradiente ao background */
+    border: $form-range-thumb-border; /* Define a borda do polegar */
+    @include border-radius($form-range-thumb-border-radius); /* Define o raio das bordas */
+    @include box-shadow($form-range-thumb-box-shadow); /* Aplica sombra */
+    @include transition($form-range-thumb-transition); /* Aplica uma transição suave */
+    appearance: none; /* Define que a aparência padrão será ignorada */
+
+    &:active {
+      @include gradient-bg($form-range-thumb-active-bg); /* Aplica gradiente ao background quando ativo */
+    }
+  }
+
+  &::-moz-range-track {
+    width: $form-range-track-width; /* Define a largura da trilha */
+    height: $form-range-track-height; /* Define a altura da trilha */
+    color: transparent; /* Define a cor do texto como transparente */
+    cursor: $form-range-track-cursor; /* Define o cursor */
+    background-color: $form-range-track-bg; /* Define a cor de fundo */
+    border-color: transparent; /* Define a cor da borda como transparente */
+    @include border-radius($form-range-track-border-radius); /* Define o raio das bordas */
+    @include box-shadow($form-range-track-box-shadow); /* Aplica sombra */
+  }
+
+  &:disabled {
+    pointer-events: none; /* Desativa eventos do mouse */
+
+    &::-webkit-slider-thumb {
+      background-color: $form-range-thumb-disabled-bg; /* Define a cor de fundo do polegar quando desabilitado */
+    }
+
+    &::-moz-range-thumb {
+      background-color: $form-range-thumb-disabled-bg; /* Define a cor de fundo do polegar quando desabilitado */
+    }
+  }
+}

@@ -1,0 +1,35 @@
+// Shorthand
+
+/* Define a classe para elementos fixados no topo */
+.fixed-top {
+  position: fixed; /* Define a posição como fixa */
+  top: 0; /* Alinha o elemento ao topo */
+  right: 0; /* Alinha o elemento à direita */
+  left: 0; /* Alinha o elemento à esquerda */
+  z-index: $zindex-fixed; /* Define o índice de empilhamento */
+}
+
+/* Define a classe para elementos fixados na parte inferior */
+.fixed-bottom {
+  position: fixed; /* Define a posição como fixa */
+  right: 0; /* Alinha o elemento à direita */
+  bottom: 0; /* Alinha o elemento na parte inferior */
+  left: 0; /* Alinha o elemento à esquerda */
+  z-index: $zindex-fixed; /* Define o índice de empilhamento */
+}
+
+// Responsive sticky top
+/* Itera sobre os breakpoints do grid */
+@each $breakpoint in map-keys($grid-breakpoints) {
+  /* Aplica estilos apenas para telas maiores que o breakpoint atual */
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints); /* Obtém o infixo do breakpoint */
+
+    /* Define a classe para elementos que ficam fixados no topo em telas maiores que o breakpoint atual */
+    .sticky#{$infix}-top {
+      position: sticky; /* Define a posição como 'sticky' */
+      top: 0; /* Alinha o elemento ao topo */
+      z-index: $zindex-sticky; /* Define o índice de empilhamento */
+    }
+  }
+}

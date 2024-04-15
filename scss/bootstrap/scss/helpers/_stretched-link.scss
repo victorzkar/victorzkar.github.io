@@ -1,0 +1,16 @@
+//
+// Stretched link
+//
+
+/* Define a classe para links esticados */
+.stretched-link {
+  &::#{$stretched-link-pseudo-element} {
+    position: absolute; /* Define a posição como absoluta */
+    top: 0; /* Alinha ao topo */
+    right: 0; /* Alinha à direita */
+    bottom: 0; /* Alinha à parte inferior */
+    left: 0; /* Alinha à esquerda */
+    z-index: $stretched-link-z-index; /* Define o índice de empilhamento */
+    content: ""; /* Conteúdo vazio */
+  }
+}

@@ -1,0 +1,18 @@
+@mixin box-shadow($shadow...) {
+  @if $enable-shadows { /* Verifica se as sombras estão habilitadas */
+    $result: (); /* Inicializa a variável de resultado */
+
+    @each $value in $shadow { /* Loop sobre os valores de sombra */
+      @if $value != null { /* Verifica se o valor não é nulo */
+        $result: append($result, $value, "comma"); /* Adiciona o valor à lista de resultados */
+      }
+      @if $value == none and length($shadow) > 1 { /* Verifica se o valor é 'none' e se há mais de um argumento */
+        @warn "The keyword 'none' must be used as a single argument."; /* Adverte sobre o uso incorreto de 'none' */
+      }
+    }
+
+    @if (length($result) > 0) { /* Verifica se há algum valor na lista de resultados */
+      box-shadow: $result; /* Aplica a sombra */
+    }
+  }
+}

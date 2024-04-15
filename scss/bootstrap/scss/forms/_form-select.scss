@@ -1,0 +1,68 @@
+// Select
+//
+
+/* Define estilos para seleções */
+.form-select {
+  display: block; /* Exibe como bloco */
+  width: 100%; /* Define a largura como 100% */
+  padding: $form-select-padding-y $form-select-indicator-padding $form-select-padding-y $form-select-padding-x; /* Define o preenchimento */
+  font-family: $form-select-font-family; /* Define a família da fonte */
+  @include font-size($form-select-font-size); /* Define o tamanho da fonte */
+  font-weight: $form-select-font-weight; /* Define o peso da fonte */
+  line-height: $form-select-line-height; /* Define a altura da linha */
+  color: $form-select-color; /* Define a cor do texto */
+  background-color: $form-select-bg; /* Define a cor de fundo */
+  background-image: escape-svg($form-select-indicator); /* Define a imagem de fundo */
+  background-repeat: no-repeat; /* Não repete a imagem de fundo */
+  background-position: $form-select-bg-position; /* Define a posição da imagem de fundo */
+  background-size: $form-select-bg-size; /* Define o tamanho da imagem de fundo */
+  border: $form-select-border-width solid $form-select-border-color; /* Define a borda */
+  @include border-radius($form-select-border-radius, 0); /* Define o raio das bordas */
+  @include box-shadow($form-select-box-shadow); /* Aplica sombra */
+  appearance: none; /* Define que a aparência padrão será ignorada */
+
+  &:focus {
+    border-color: $form-select-focus-border-color; /* Define a cor da borda ao focar */
+    outline: 0; /* Remove o contorno padrão do foco */
+    @if $enable-shadows {
+      @include box-shadow($form-select-box-shadow, $form-select-focus-box-shadow); /* Aplica sombra ao focar */
+    } @else {
+      // Evita usar mixin para passar sombra de foco personalizada corretamente
+      box-shadow: $form-select-focus-box-shadow;
+    }
+  }
+
+  &[multiple],
+  &[size]:not([size="1"]) {
+    padding-right: $form-select-padding-x; /* Define o preenchimento à direita */
+    background-image: none; /* Remove a imagem de fundo */
+  }
+
+  &:disabled {
+    color: $form-select-disabled-color; /* Define a cor do texto quando desabilitado */
+    background-color: $form-select-disabled-bg; /* Define a cor de fundo quando desabilitado */
+    border-color: $form-select-disabled-border-color; /* Define a cor da borda quando desabilitado */
+  }
+
+  // Remove contorno da caixa de seleção no FF
+  &:-moz-focusring {
+    color: transparent; /* Define a cor do texto como transparente */
+    text-shadow: 0 0 0 $form-select-color; /* Define uma sombra para o texto */
+  }
+}
+
+/* Define estilos para seleções pequenas */
+.form-select-sm {
+  padding-top: $form-select-padding-y-sm; /* Define o preenchimento superior */
+  padding-bottom: $form-select-padding-y-sm; /* Define o preenchimento inferior */
+  padding-left: $form-select-padding-x-sm; /* Define o preenchimento à esquerda */
+  @include font-size($form-select-font-size-sm); /* Define o tamanho da fonte */
+}
+
+/* Define estilos para seleções grandes */
+.form-select-lg {
+  padding-top: $form-select-padding-y-lg; /* Define o preenchimento superior */
+  padding-bottom: $form-select-padding-y-lg; /* Define o preenchimento inferior */
+  padding-left: $form-select-padding-x-lg; /* Define o preenchimento à esquerda */
+  @include font-size($form-select-font-size-lg); /* Define o tamanho da fonte */
+}

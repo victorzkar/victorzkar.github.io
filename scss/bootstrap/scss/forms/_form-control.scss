@@ -1,0 +1,222 @@
+//
+// General form controls (plus a few specific high-level interventions)
+//
+
+/* Define estilos para os controles de formulário em geral */
+.form-control {
+  display: block; /* Exibe os elementos como blocos */
+  width: 100%; /* Define a largura como 100% */
+  padding: $input-padding-y $input-padding-x; /* Define o preenchimento */
+  font-family: $input-font-family; /* Define a família da fonte */
+  @include font-size($input-font-size); /* Define o tamanho da fonte */
+  font-weight: $input-font-weight; /* Define o peso da fonte */
+  line-height: $input-line-height; /* Define a altura da linha */
+  color: $input-color; /* Define a cor do texto */
+  background-color: $input-bg; /* Define a cor de fundo */
+  background-clip: padding-box; /* Define a área de clipping para o background */
+  border: $input-border-width solid $input-border-color; /* Define a borda */
+  appearance: none; /* Define que a aparência padrão será ignorada */
+
+  // Fix appearance for date inputs in Safari
+  // Corrige a aparência dos inputs de data no Safari
+
+  // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
+  // Observação: Isso não tem efeito em <select>s em alguns navegadores, devido à limitada estilização de <select>s em CSS.
+  @include border-radius($input-border-radius, 0); /* Define o raio das bordas */
+
+  @include box-shadow($input-box-shadow); /* Aplica sombra */
+  @include transition($input-transition); /* Aplica uma transição suave */
+
+  /* Estilos específicos para inputs do tipo file */
+  &[type="file"] {
+    overflow: hidden; /* Impede a sobreposição do botão de pseudo-elemento */
+
+    &:not(:disabled):not(:read-only) {
+      cursor: pointer; /* Define o cursor como ponteiro quando não está desabilitado nem somente leitura */
+    }
+  }
+
+  /* Estiliza o estado :focus para imitar os estilos nativos do WebKit */
+  &:focus {
+    color: $input-focus-color; /* Define a cor do texto quando está focado */
+    background-color: $input-focus-bg; /* Define a cor de fundo quando está focado */
+    border-color: $input-focus-border-color; /* Define a cor da borda quando está focado */
+    outline: 0; /* Remove o contorno padrão do foco */
+    @if $enable-shadows {
+      @include box-shadow($input-box-shadow, $input-focus-box-shadow); /* Aplica sombra quando está focado */
+    } @else {
+      // Avoid using mixin so we can pass custom focus shadow properly
+      box-shadow: $input-focus-box-shadow; /* Aplica sombra quando está focado */
+    }
+  }
+
+  /* Ajusta a altura do input de data e hora para corresponder à linha */
+  &::-webkit-date-and-time-value {
+    // Multiply line-height by 1em if it has no unit
+    height: if(unit($input-line-height) == "", $input-line-height * 1em, $input-line-height);
+  }
+
+  /* Placeholder */
+  &::placeholder {
+    color: $input-placeholder-color; /* Define a cor do marcador de posição */
+    opacity: 1; /* Define a opacidade */
+  }
+
+  /* Inputs desabilitados e somente leitura */
+  //
+  // HTML5 diz que controles dentro de fieldset > legend:first-child não serão
+  // desabilitados se o fieldset estiver desabilitado. Devido a dificuldades de implementação,
+  // não consideramos esse caso de uso específico; estilizamos como desabilitados de qualquer forma.
+  &:disabled,
+  &:read-only {
+    background-color: $input-disabled-bg; /* Define a cor de fundo quando está desabilitado */
+    border-color: $input-disabled-border-color; /* Define a cor da borda quando está desabilitado */
+    opacity: 1; /* Define a opacidade */
+  }
+
+  /* Estiliza o botão de seleção de arquivo */
+  &::file-selector-button {
+    padding: $input-padding-y $input-padding-x; /* Define o preenchimento */
+    margin: (-$input-padding-y) (-$input-padding-x); /* Define a margem */
+    margin-inline-end: $input-padding-x; /* Define a margem no final */
+    color: $form-file-button-color; /* Define a cor do texto */
+    @include gradient-bg($form-file-button-bg); /* Aplica gradiente ao background */
+    pointer-events: none; /* Desativa eventos do mouse */
+    border-color: inherit; /* Herda a cor da borda */
+    border-style: solid; /* Define o estilo da borda */
+    border-width: 0; /* Define a largura da borda */
+    border-inline-end-width: $input-border-width; /* Define a largura da borda lateral */
+    border-radius: 0; /* Define o raio das bordas */
+    @include transition($btn-transition); /* Aplica uma transição suave */
+  }
+
+  /* Estiliza o botão de seleção de arquivo ao passar o mouse */
+  &:hover:not(:disabled):not(:read-only)::file-selector-button {
+    background-color: $form-file-button-hover-bg; /* Define a cor de fundo ao passar o mouse */
+  }
+
+  /* Estiliza o botão de upload de arquivo do WebKit */
+  &::-webkit-file-upload-button {
+    padding: $input-padding-y $input-padding-x; /* Define o preenchimento */
+    margin: (-$input-padding-y) (-$input-padding-x); /* Define a margem */
+    margin-inline-end: $input-padding-x; /* Define a margem no final */
+    color: $form-file-button-color; /* Define a cor do texto */
+    @include gradient-bg($form-file-button-bg); /* Aplica gradiente ao background */
+    pointer-events: none; /* Desativa eventos do mouse */
+    border-color: inherit; /* Herda a cor da borda */
+    border-style: solid; /* Define o estilo da borda */
+    border-width: 0; /* Define a largura da borda */
+    border-inline-end-width: $input-border-width; /* Define a largura da borda lateral */
+    border-radius: 0; /* Define o raio das bordas */
+    @include transition($btn-transition); /* Aplica uma transição suave */
+  }
+
+  /* Estiliza o botão de upload de arquivo do WebKit ao passar o mouse */
+  &:hover:not(:disabled):not(:read-only)::-webkit-file-upload-button {
+    background-color: $form-file-button-hover-bg; /* Define a cor de fundo ao passar o mouse */
+  }
+}
+
+// Readonly controls as plain text
+//
+// Aplica a classe a um input somente leitura para que pareça texto comum
+// (sem borda, cor de fundo, indicador de foco)
+
+.form-control-plaintext {
+  display: block; /* Exibe os elementos como blocos */
+  width: 100%; /* Define a largura como 100% */
+  padding: $input-padding-y 0; /* Define o preenchimento */
+  margin-bottom: 0; /* Iguala as margens inferiores com inputs padrão */
+  line-height: $input-line-height; /* Define a altura da linha */
+  color: $input-plaintext-color; /* Define a cor do texto */
+  background-color: transparent; /* Define a cor de fundo como transparente */
+  border: solid transparent; /* Define a borda transparente */
+  border-width: $input-border-width 0; /* Define a largura da borda */
+
+  &.form-control-sm,
+  &.form-control-lg {
+    padding-right: 0; /* Define o preenchimento à direita como zero */
+    padding-left: 0; /* Define o preenchimento à esquerda como zero */
+  }
+}
+
+// Form control sizing
+//
+// Baseado em `.form-control` com classes modificadas para diminuir ou aumentar
+// a altura e o tamanho da fonte dos controles de formulário.
+
+.form-control-sm {
+  min-height: $input-height-sm; /* Define a altura mínima */
+  padding: $input-padding-y-sm $input-padding-x-sm; /* Define o preenchimento */
+  @include font-size($input-font-size-sm); /* Define o tamanho da fonte */
+  @include border-radius($input-border-radius-sm); /* Define o raio das bordas */
+
+  &::file-selector-button {
+    padding: $input-padding-y-sm $input-padding-x-sm; /* Define o preenchimento */
+    margin: (-$input-padding-y-sm) (-$input-padding-x-sm); /* Define a margem */
+    margin-inline-end: $input-padding-x-sm; /* Define a margem no final */
+  }
+
+  &::-webkit-file-upload-button {
+    padding: $input-padding-y-sm $input-padding-x-sm; /* Define o preenchimento */
+    margin: (-$input-padding-y-sm) (-$input-padding-x-sm); /* Define a margem */
+    margin-inline-end: $input-padding-x-sm; /* Define a margem no final */
+  }
+}
+
+.form-control-lg {
+  min-height: $input-height-lg; /* Define a altura mínima */
+  padding: $input-padding-y-lg $input-padding-x-lg; /* Define o preenchimento */
+  @include font-size($input-font-size-lg); /* Define o tamanho da fonte */
+  @include border-radius($input-border-radius-lg); /* Define o raio das bordas */
+
+  &::file-selector-button {
+    padding: $input-padding-y-lg $input-padding-x-lg; /* Define o preenchimento */
+    margin: (-$input-padding-y-lg) (-$input-padding-x-lg); /* Define a margem */
+    margin-inline-end: $input-padding-x-lg; /* Define a margem no final */
+  }
+
+  &::-webkit-file-upload-button {
+    padding: $input-padding-y-lg $input-padding-x-lg; /* Define o preenchimento */
+    margin: (-$input-padding-y-lg) (-$input-padding-x-lg); /* Define a margem */
+    margin-inline-end: $input-padding-x-lg; /* Define a margem no final */
+  }
+}
+
+// Make sure textareas don't shrink too much when resized
+// stylelint-disable selector-no-qualifying-type
+textarea {
+  &.form-control {
+    min-height: $input-height; /* Define a altura mínima */
+  }
+
+  &.form-control-sm {
+    min-height: $input-height-sm; /* Define a altura mínima */
+  }
+
+  &.form-control-lg {
+    min-height: $input-height-lg; /* Define a altura mínima */
+  }
+}
+// stylelint-enable selector-no-qualifying-type
+
+/* Estiliza controles de cor */
+.form-control-color {
+  max-width: 3rem; /* Define a largura máxima */
+  height: auto; /* Define a altura automática */
+  padding: $input-padding-y; /* Define o preenchimento */
+
+  &:not(:disabled):not(:read-only) {
+    cursor: pointer; /* Define o cursor como ponteiro quando não está desabilitado nem somente leitura */
+  }
+
+  &::-moz-color-swatch {
+    height: if(unit($input-line-height) == "", $input-line-height * 1em, $input-line-height); /* Define a altura */
+    @include border-radius($input-border-radius); /* Define o raio das bordas */
+  }
+
+  &::-webkit-color-swatch {
+    height: if(unit($input-line-height) == "", $input-line-height * 1em, $input-line-height); /* Define a altura */
+    @include border-radius($input-border-radius); /* Define o raio das bordas */
+  }
+}

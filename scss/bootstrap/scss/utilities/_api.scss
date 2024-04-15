@@ -1,0 +1,47 @@
+// Loop sobre cada breakpoint
+@each $breakpoint in map-keys($grid-breakpoints) {
+
+  // Gera a media query se necessário
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    // Loop sobre cada propriedade de utilidade
+    @each $key, $utility in $utilities {
+      // A utilidade pode ser desativada com `false`, portanto, verifica se a utilidade é um mapa primeiro
+      // Só prossiga se as consultas de mídia responsivas estiverem habilitadas ou se for a consulta de mídia base
+      @if type-of($utility) == "map" and (map-get($utility, responsive) or $infix == "") {
+        @include generate-utility($utility, $infix);
+      }
+    }
+  }
+}
+
+// RFS rescaling
+@media (min-width: $rfs-mq-value) {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @if (map-get($grid-breakpoints, $breakpoint) < $rfs-breakpoint) {
+      // Loop sobre cada propriedade de utilidade
+      @each $key, $utility in $utilities {
+        // A utilidade pode ser desativada com `false`, portanto, verifica se a utilidade é um mapa primeiro
+        // Só prossiga se as consultas de mídia responsivas estiverem habilitadas ou se for a consulta de mídia base
+        @if type-of($utility) == "map" and map-get($utility, rfs) and (map-get($utility, responsive) or $infix == "") {
+          @include generate-utility($utility, $infix, true);
+        }
+      }
+    }
+  }
+}
+
+
+// Utilidades de impressão
+@media print {
+  @each $key, $utility in $utilities {
+    // A utilidade pode ser desativada com `false`, portanto, verifica se a utilidade é um mapa primeiro
+    // Em seguida, verifica se a utilidade precisa de estilos de impressão
+    @if type-of($utility) == "map" and map-get($utility, print) == true {
+      @include generate-utility($utility, "-print");
+    }
+  }
+}

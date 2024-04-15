@@ -1,0 +1,7 @@
+// Listas
+
+// Unstyled mantém os itens da lista como elementos de bloco, apenas remove o preenchimento padrão do navegador e o estilo de lista
+@mixin list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}

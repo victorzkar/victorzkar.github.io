@@ -1,0 +1,14 @@
+// Este mixin clearfix é usado para limpar floats dentro de um elemento pai.
+// Ele adiciona um pseudoelemento ::after ao elemento pai com clear:both, forçando-o a envolver
+// seus filhos flutuantes. Isso é útil para evitar problemas de layout causados por floats.
+// O comentário "scss-docs-start clearfix" indica o início da documentação do mixin.
+// O comentário "scss-docs-end clearfix" indica o fim da documentação do mixin.
+// Esta documentação pode ser usada para gerar documentação de estilo ou para ajudar
+// outros desenvolvedores a entenderem a finalidade e o uso deste mixin.
+@mixin clearfix() {
+  &::after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+}

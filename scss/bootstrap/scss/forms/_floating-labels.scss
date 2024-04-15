@@ -1,0 +1,61 @@
+/* Define o estilo para um formulário com efeito de "floating label" */
+
+.form-floating {
+  position: relative; /* Define a posição relativa para permitir o posicionamento dos elementos filhos */
+
+  > .form-control,
+  > .form-select {
+    height: $form-floating-height; /* Define a altura dos elementos de controle */
+    padding: $form-floating-padding-y $form-floating-padding-x; /* Define o preenchimento dos elementos de controle */
+  }
+
+  > label {
+    position: absolute; /* Define a posição absoluta para as etiquetas */
+    top: 0; /* Posiciona a etiqueta no topo do elemento pai */
+    left: 0; /* Posiciona a etiqueta no canto esquerdo do elemento pai */
+    height: 100%; /* Define a altura da etiqueta como 100% do seu contêiner para permitir o uso em textareas */
+    padding: $form-floating-padding-y $form-floating-padding-x; /* Define o preenchimento das etiquetas */
+    pointer-events: none; /* Desativa os eventos do ponteiro do mouse para as etiquetas */
+    border: $input-border-width solid transparent; /* Borda transparente para alinhar o texto da etiqueta com o controle de entrada */
+    transform-origin: 0 0; /* Define a origem da transformação para a etiqueta */
+    @include transition($form-floating-transition); /* Aplica uma transição suave à etiqueta */
+  }
+
+  > .form-control {
+    &::placeholder {
+      color: transparent; /* Torna a cor do marcador de posição transparente */
+    }
+
+    &:focus,
+    &:not(:placeholder-shown) {
+      padding-top: $form-floating-input-padding-t; /* Ajusta o preenchimento superior do controle de entrada */
+      padding-bottom: $form-floating-input-padding-b; /* Ajusta o preenchimento inferior do controle de entrada */
+    }
+
+    &:-webkit-autofill {
+      padding-top: $form-floating-input-padding-t; /* Ajusta o preenchimento superior do controle de entrada (para navegadores WebKit) */
+      padding-bottom: $form-floating-input-padding-b; /* Ajusta o preenchimento inferior do controle de entrada (para navegadores WebKit) */
+    }
+  }
+
+  > .form-select {
+    padding-top: $form-floating-input-padding-t; /* Ajusta o preenchimento superior do controle de seleção */
+    padding-bottom: $form-floating-input-padding-b; /* Ajusta o preenchimento inferior do controle de seleção */
+  }
+
+  > .form-control:focus,
+  > .form-control:not(:placeholder-shown),
+  > .form-select {
+    ~ label {
+      opacity: $form-floating-label-opacity; /* Define a opacidade da etiqueta */
+      transform: $form-floating-label-transform; /* Define a transformação da etiqueta */
+    }
+  }
+
+  > .form-control:-webkit-autofill {
+    ~ label {
+      opacity: $form-floating-label-opacity; /* Define a opacidade da etiqueta (para navegadores WebKit) */
+      transform: $form-floating-label-transform; /* Define a transformação da etiqueta (para navegadores WebKit) */
+    }
+  }
+}

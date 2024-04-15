@@ -1,0 +1,121 @@
+//
+// Base styles
+//
+
+/* Define estilos base */
+.input-group {
+  position: relative; /* Define a posição */
+  display: flex; /* Exibe como flexível */
+  flex-wrap: wrap; /* Envolve flexíveis */
+  align-items: stretch; /* Alinha itens ao estiramento */
+  width: 100%; /* Define a largura como 100% */
+
+  > .form-control,
+  > .form-select {
+    position: relative; /* Define a posição */
+    flex: 1 1 auto; /* Define flexibilidade */
+    width: 1%; /* Define a largura */
+    min-width: 0; /* Define a largura mínima */
+  }
+
+  // Traga o controle de formulário "ativo" para o topo dos elementos circundantes
+  > .form-control:focus,
+  > .form-select:focus {
+    z-index: 3; /* Define o índice z */
+  }
+
+  // Garante que os botões estejam sempre acima dos inputs para bordas mais visualmente agradáveis.
+  // Isso não é necessário para `.input-group-text` pois ela compartilha a mesma cor de borda
+  // que nossos inputs.
+  .btn {
+    position: relative; /* Define a posição */
+    z-index: 2; /* Define o índice z */
+
+    &:focus {
+      z-index: 3; /* Define o índice z */
+    }
+  }
+}
+
+// Textual addons
+//
+// Serve como um elemento genérico para qualquer texto ou entrada de rádio/caixa de seleção que você deseje
+// pré ou anexar a um input.
+
+.input-group-text {
+  display: flex; /* Exibe como flexível */
+  align-items: center; /* Alinha itens ao centro */
+  padding: $input-group-addon-padding-y $input-group-addon-padding-x; /* Define o preenchimento */
+  @include font-size($input-font-size); /* Define o tamanho da fonte */
+  font-weight: $input-group-addon-font-weight; /* Define o peso da fonte */
+  line-height: $input-line-height; /* Define a altura da linha */
+  color: $input-group-addon-color; /* Define a cor do texto */
+  text-align: center; /* Alinha ao centro */
+  white-space: nowrap; /* Não quebra a linha */
+  background-color: $input-group-addon-bg; /* Define a cor de fundo */
+  border: $input-border-width solid $input-group-addon-border-color; /* Define a borda */
+  @include border-radius($input-border-radius); /* Define o raio das bordas */
+}
+
+
+// Sizing
+//
+// Remixa as classes de tamanho padrão do controle de formulário em novas para facilitar
+// manipulação.
+
+.input-group-lg > .form-control,
+.input-group-lg > .form-select,
+.input-group-lg > .input-group-text,
+.input-group-lg > .btn {
+  padding: $input-padding-y-lg $input-padding-x-lg; /* Define o preenchimento */
+  @include font-size($input-font-size-lg); /* Define o tamanho da fonte */
+  @include border-radius($input-border-radius-lg); /* Define o raio das bordas */
+}
+
+.input-group-sm > .form-control,
+.input-group-sm > .form-select,
+.input-group-sm > .input-group-text,
+.input-group-sm > .btn {
+  padding: $input-padding-y-sm $input-padding-x-sm; /* Define o preenchimento */
+  @include font-size($input-font-size-sm); /* Define o tamanho da fonte */
+  @include border-radius($input-border-radius-sm); /* Define o raio das bordas */
+}
+
+.input-group-lg > .form-select,
+.input-group-sm > .form-select {
+  padding-right: $form-select-padding-x + $form-select-indicator-padding; /* Define o preenchimento à direita */
+}
+
+
+// Rounded corners
+//
+// Esses conjuntos de regras devem vir após os de dimensionamento para substituir corretamente os valores de raio sm e lg
+// quando estendidos. Eles são mais específicos do que gostaríamos
+// com a parte `.input-group >`, mas sem ela, não podemos substituir o dimensionamento.
+
+// stylelint-disable-next-line no-duplicate-selectors
+.input-group {
+  &:not(.has-validation) {
+    > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu),
+    > .dropdown-toggle:nth-last-child(n + 3) {
+      @include border-end-radius(0); /* Define o raio da borda final */
+    }
+  }
+
+  &.has-validation {
+    > :nth-last-child(n + 3):not(.dropdown-toggle):not(.dropdown-menu),
+    > .dropdown-toggle:nth-last-child(n + 4) {
+      @include border-end-radius(0); /* Define o raio da borda final */
+    }
+  }
+
+  $validation-messages: ""; /* Mensagens de validação */
+  @each $state in map-keys($form-validation-states) {
+    $validation-messages: $validation-messages + ":not(." + unquote($state) + "-tooltip)" + ":not(." + unquote($state) + "-feedback)"; /* Adiciona mensagens de validação */
+  }
+
+  > :not(:first-child):not(.dropdown-menu)#{$validation-messages} {
+    margin-left: -$input-border-width; /* Define a margem à esquerda */
+    @include border-start-radius(0); /* Define o raio da borda inicial */
+  }
+}

@@ -1,0 +1,9 @@
+//
+// Visually hidden
+//
+
+/* Define estilos para elementos visualmente ocultos */
+.visually-hidden,
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
+  @include visually-hidden(); /* Inclui a mixin para ocultação visual */
+}

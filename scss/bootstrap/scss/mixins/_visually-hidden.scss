@@ -1,0 +1,25 @@
+// stylelint-disable declaration-no-important
+
+// Oculta conteúdo visualmente mantendo-o acessível às tecnologias assistivas
+
+@mixin visually-hidden() {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+// Use para exibir conteúdo apenas quando estiver focado, ou quando um de seus elementos filhos estiver focado
+// (ou seja, quando o foco estiver dentro do elemento/container ao qual a classe foi aplicada)
+//
+
+@mixin visually-hidden-focusable() {
+  &:not(:focus):not(:focus-within) {
+    @include visually-hidden();
+  }
+}

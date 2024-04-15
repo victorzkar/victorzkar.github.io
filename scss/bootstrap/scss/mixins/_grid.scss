@@ -1,0 +1,126 @@
+/// Sistema de grade
+//
+// Gere colunas de grade semântica com esses mixins.
+
+// Cria uma linha da grade.
+@mixin make-row($gutter: $grid-gutter-width) {
+  --#{$variable-prefix}gutter-x: #{$gutter};
+  --#{$variable-prefix}gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(var(--#{$variable-prefix}gutter-y) * -1); // Desabilita o lint para a lista de funções
+  margin-right: calc(var(--#{$variable-prefix}gutter-x) / -2); // Desabilita o lint para a lista de funções
+  margin-left: calc(var(--#{$variable-prefix}gutter-x) / -2); // Desabilita o lint para a lista de funções
+}
+
+// Prepara as colunas para a grade.
+@mixin make-col-ready($gutter: $grid-gutter-width) {
+  // Adiciona box sizing apenas se a grade estiver carregada
+  box-sizing: if(variable-exists(include-column-box-sizing) and $include-column-box-sizing, border-box, null);
+  // Impede que as colunas se tornem muito estreitas em níveis menores da grade, definindo sempre `width: 100%;`.
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%; // Impede `.col-auto`, `.col` (e variantes responsivas) de ultrapassar a grade
+  padding-right: calc(var(--#{$variable-prefix}gutter-x) / 2); // Desabilita o lint para a lista de funções
+  padding-left: calc(var(--#{$variable-prefix}gutter-x) / 2); // Desabilita o lint para a lista de funções
+  margin-top: var(--#{$variable-prefix}gutter-y);
+}
+
+// Cria uma coluna da grade.
+@mixin make-col($size: false, $columns: $grid-columns) {
+  @if $size {
+    flex: 0 0 auto;
+    width: percentage($size / $columns);
+  } @else {
+    flex: 1 1 0;
+    max-width: 100%;
+  }
+}
+
+// Cria uma coluna automática da grade.
+@mixin make-col-auto() {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+// Adiciona um deslocamento para uma coluna da grade.
+@mixin make-col-offset($size, $columns: $grid-columns) {
+  $num: $size / $columns;
+  margin-left: if($num == 0, 0, percentage($num));
+}
+
+// Colunas de linha
+//
+// Especifica em um elemento pai (por exemplo, .row) para forçar os filhos imediatos em NN
+// número de colunas. Suporta a quebra em novas linhas, mas não faz uma grade de estilo Masonry.
+@mixin row-cols($count) {
+  > * {
+    flex: 0 0 auto;
+    width: 100% / $count;
+  }
+}
+
+// Geração da grade do framework
+//
+// Usado apenas pelo Bootstrap para gerar o número correto de classes de grade, dado
+// qualquer valor de `$grid-columns`.
+@mixin make-grid-columns($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
+  @each $breakpoint in map-keys($breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $breakpoints);
+
+    @include media-breakpoint-up($breakpoint, $breakpoints) {
+      // Fornece classes básicas `.col-{bp}` para colunas flexíveis de largura igual
+      .col#{$infix} {
+        flex: 1 0 0%; // 
+      }
+
+      .row-cols#{$infix}-auto > * {
+        @include make-col-auto();
+      }
+
+      @if $grid-row-columns > 0 {
+        @for $i from 1 through $grid-row-columns {
+          .row-cols#{$infix}-#{$i} {
+            @include row-cols($i);
+          }
+        }
+      }
+
+      .col#{$infix}-auto {
+        @include make-col-auto();
+      }
+
+      @if $columns > 0 {
+        @for $i from 1 through $columns {
+          .col#{$infix}-#{$i} {
+            @include make-col($i, $columns);
+          }
+        }
+
+        // `$columns - 1` because offsetting by the width of an entire row isn't possible
+        @for $i from 0 through ($columns - 1) {
+          @if not ($infix == "" and $i == 0) { // Avoid emitting useless .offset-0
+            .offset#{$infix}-#{$i} {
+              @include make-col-offset($i, $columns);
+            }
+          }
+        }
+      }
+
+      // Espaçadores
+      //
+      // Use `.g-*`, `.gx-*` or `.gy-*` utilities para alterar o espaçamento entre as colunas.
+      @each $key, $value in $gutters {
+        .g#{$infix}-#{$key},
+        .gx#{$infix}-#{$key} {
+          --#{$variable-prefix}gutter-x: #{$value};
+        }
+
+        .g#{$infix}-#{$key},
+        .gy#{$infix}-#{$key} {
+          --#{$variable-prefix}gutter-y: #{$value};
+        }
+      }
+    }
+  }
+}

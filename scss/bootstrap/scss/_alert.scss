@@ -1,0 +1,57 @@
+//
+// Estilos base
+//
+
+.alert {
+  position: relative;
+  padding: $alert-padding-y $alert-padding-x;
+  margin-bottom: $alert-margin-bottom;
+  border: $alert-border-width solid transparent;
+  @include border-radius($alert-border-radius);
+}
+
+// Títulos para alertas maiores
+.alert-heading {
+  // Especificado para evitar conflitos ao alterar $headings-color
+  color: inherit;
+}
+
+// Fornecer classe para links que correspondam aos alertas
+.alert-link {
+  font-weight: $alert-link-font-weight;
+}
+
+
+// Alertas demissíveis
+//
+// Aumentar o padding direito e ajustar a posição do botão de fechar.
+
+.alert-dismissible {
+  padding-right: $alert-dismissible-padding-r;
+
+  // Ajustar posição do link de fechar
+  .btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: $stretched-link-z-index + 1;
+    padding: $alert-padding-y * 1.25 $alert-padding-x;
+  }
+}
+
+
+// Modificadores de alerta
+//
+// Gerar classes de modificadores contextuais para colorir o alerta.
+
+@each $state, $value in $theme-colors {
+  $alert-background: shift-color($value, $alert-bg-scale);
+  $alert-border: shift-color($value, $alert-border-scale);
+  $alert-color: shift-color($value, $alert-color-scale);
+  @if (contrast-ratio($alert-background, $alert-color) < $min-contrast-ratio) {
+    $alert-color: mix($value, color-contrast($alert-background), abs($alert-color-scale));
+  }
+  .alert-#{$state} {
+    @include alert-variant($alert-background, $alert-border, $alert-color);
+  }
+}

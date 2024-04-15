@@ -1,0 +1,88 @@
+// stylelint-disable property-disallowed-list
+// Single side border-radius
+
+// Helper function to replace negative values with 0
+@function valid-radius($radius) {
+  $return: ();
+  @each $value in $radius {
+    @if type-of($value) == number {
+      $return: append($return, max($value, 0));
+    } @else {
+      $return: append($return, $value);
+    }
+  }
+  @return $return;
+}
+
+// scss-docs-start border-radius-mixins
+
+/* Mixin para definir o raio de borda */
+@mixin border-radius($radius: $border-radius, $fallback-border-radius: false) {
+  @if $enable-rounded {
+    border-radius: valid-radius($radius); /* Aplica o raio de borda */
+  }
+  @else if $fallback-border-radius != false {
+    border-radius: $fallback-border-radius;
+  }
+}
+
+/* Mixin para definir o raio de borda superior */
+@mixin border-top-radius($radius: $border-radius) {
+  @if $enable-rounded {
+    border-top-left-radius: valid-radius($radius); /* Aplica o raio de borda superior esquerdo */
+    border-top-right-radius: valid-radius($radius); /* Aplica o raio de borda superior direito */
+  }
+}
+
+/* Mixin para definir o raio de borda final */
+@mixin border-end-radius($radius: $border-radius) {
+  @if $enable-rounded {
+    border-top-right-radius: valid-radius($radius); /* Aplica o raio de borda superior direito */
+    border-bottom-right-radius: valid-radius($radius); /* Aplica o raio de borda inferior direito */
+  }
+}
+
+/* Mixin para definir o raio de borda inferior */
+@mixin border-bottom-radius($radius: $border-radius) {
+  @if $enable-rounded {
+    border-bottom-right-radius: valid-radius($radius); /* Aplica o raio de borda inferior direito */
+    border-bottom-left-radius: valid-radius($radius); /* Aplica o raio de borda inferior esquerdo */
+  }
+}
+
+/* Mixin para definir o raio de borda inicial */
+@mixin border-start-radius($radius: $border-radius) {
+  @if $enable-rounded {
+    border-top-left-radius: valid-radius($radius); /* Aplica o raio de borda superior esquerdo */
+    border-bottom-left-radius: valid-radius($radius); /* Aplica o raio de borda inferior esquerdo */
+  }
+}
+
+/* Mixin para definir o raio de borda superior inicial */
+@mixin border-top-start-radius($radius: $border-radius) {
+  @if $enable-rounded {
+    border-top-left-radius: valid-radius($radius); /* Aplica o raio de borda superior esquerdo */
+  }
+}
+
+/* Mixin para definir o raio de borda superior final */
+@mixin border-top-end-radius($radius: $border-radius) {
+  @if $enable-rounded {
+    border-top-right-radius: valid-radius($radius); /* Aplica o raio de borda superior direito */
+  }
+}
+
+/* Mixin para definir o raio de borda inferior final */
+@mixin border-bottom-end-radius($radius: $border-radius) {
+  @if $enable-rounded {
+    border-bottom-right-radius: valid-radius($radius); /* Aplica o raio de borda inferior direito */
+  }
+}
+
+/* Mixin para definir o raio de borda inferior inicial */
+@mixin border-bottom-start-radius($radius: $border-radius) {
+  @if $enable-rounded {
+    border-bottom-left-radius: valid-radius($radius); /* Aplica o raio de borda inferior esquerdo */
+  }
+}
+// scss-docs-end border-radius-mixins

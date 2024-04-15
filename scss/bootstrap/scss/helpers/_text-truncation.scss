@@ -1,0 +1,8 @@
+//
+// Text truncation
+//
+
+/* Aplica estilos de truncamento de texto */
+.text-truncate {
+  @include text-truncate(); /* Inclui a mixin para truncamento de texto */
+}

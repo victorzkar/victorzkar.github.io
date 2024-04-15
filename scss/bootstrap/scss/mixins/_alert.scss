@@ -1,0 +1,15 @@
+// scss-docs-start alert-variant-mixin
+
+/* Define uma mixin para estilizar alertas com variações de cor */
+@mixin alert-variant($background, $border, $color) {
+  color: $color; /* Define a cor do texto */
+  @include gradient-bg($background); /* Aplica um fundo gradiente */
+  border-color: $border; /* Define a cor da borda */
+
+  /* Estiliza os links dentro do alerta */
+  .alert-link {
+    color: shade-color($color, 20%); /* Define a cor do link com 20% de sombra */
+  }
+}
+
+// scss-docs-end alert-variant-mixin

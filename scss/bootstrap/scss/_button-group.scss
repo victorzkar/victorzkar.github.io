@@ -1,0 +1,138 @@
+// Fazer o div se comportar como um botão
+.btn-group,
+.btn-group-vertical {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle; // corresponder ao alinhamento de .btn dado o truque de tamanho de fonte acima
+
+  > .btn {
+    position: relative;
+    flex: 1 1 auto;
+  }
+
+  // Traga os botões de hover, focados e "ativos" para a frente para sobrepor as bordas corretamente
+  > .btn-check:checked + .btn,
+  > .btn-check:focus + .btn,
+  > .btn:hover,
+  > .btn:focus,
+  > .btn:active,
+  > .btn.active {
+    z-index: 1;
+  }
+}
+
+// Opcional: agrupe vários grupos de botões para uma barra de ferramentas
+.btn-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  .input-group {
+    width: auto;
+  }
+}
+
+.btn-group {
+  // Evitar bordas duplas quando os botões estão lado a lado
+  > .btn:not(:first-child),
+  > .btn-group:not(:first-child) {
+    margin-left: -$btn-border-width;
+  }
+
+  // Redefinir cantos arredondados
+  > .btn:not(:last-child):not(.dropdown-toggle),
+  > .btn-group:not(:last-child) > .btn {
+    @include border-end-radius(0);
+  }
+
+  // O raio à esquerda deve ser 0 se o botão for:
+  // - o "terceiro ou mais" filho
+  // - o segundo filho e o elemento anterior não for `.btn-check` (tornando-o o primeiro filho visualmente)
+  // - parte de um btn-group que não é o primeiro filho
+  > .btn:nth-child(n + 3),
+  > :not(.btn-check) + .btn,
+  > .btn-group:not(:first-child) > .btn {
+    @include border-start-radius(0);
+  }
+}
+
+// Dimensionamento
+//
+// Remixar as classes de dimensionamento de botão padrão em novas para manipulação mais fácil.
+
+.btn-group-sm > .btn { @extend .btn-sm; }
+.btn-group-lg > .btn { @extend .btn-lg; }
+
+
+//
+// Divisores de botão de divisão
+//
+
+.dropdown-toggle-split {
+  padding-right: $btn-padding-x * .75;
+  padding-left: $btn-padding-x * .75;
+
+  &::after,
+  .dropup &::after,
+  .dropend &::after {
+    margin-left: 0;
+  }
+
+  .dropstart &::before {
+    margin-right: 0;
+  }
+}
+
+.btn-sm + .dropdown-toggle-split {
+  padding-right: $btn-padding-x-sm * .75;
+  padding-left: $btn-padding-x-sm * .75;
+}
+
+.btn-lg + .dropdown-toggle-split {
+  padding-right: $btn-padding-x-lg * .75;
+  padding-left: $btn-padding-x-lg * .75;
+}
+
+
+// O botão clicável para alternar o menu
+// Defina a mesma sombra interna que o estado :active
+.btn-group.show .dropdown-toggle {
+  @include box-shadow($btn-active-box-shadow);
+
+  // Não mostrar sombra para `.btn-link` pois não possui outros estilos de botão.
+  &.btn-link {
+    @include box-shadow(none);
+  }
+}
+
+
+//
+// Grupos de botões verticais
+//
+
+.btn-group-vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  > .btn,
+  > .btn-group {
+    width: 100%;
+  }
+
+  > .btn:not(:first-child),
+  > .btn-group:not(:first-child) {
+    margin-top: -$btn-border-width;
+  }
+
+  // Redefinir cantos arredondados
+  > .btn:not(:last-child):not(.dropdown-toggle),
+  > .btn-group:not(:last-child) > .btn {
+    @include border-bottom-radius(0);
+  }
+
+  > .btn ~ .btn,
+  > .btn-group:not(:first-child) > .btn {
+    @include border-top-radius(0);
+  }
+}

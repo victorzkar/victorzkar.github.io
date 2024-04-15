@@ -1,0 +1,14 @@
+// O mixin deprecate é usado para marcar mixins ou funções como obsoletos.
+// Ele aceita os seguintes parâmetros:
+//   $name: Nome do mixin ou função que está sendo marcado como obsoleto.
+//   $deprecate-version: Versão em que o mixin ou função foi marcado como obsoleto.
+//   $remove-version: Versão em que o mixin ou função será removido completamente.
+//   $ignore-warning: Um parâmetro opcional que pode ser usado para suprimir a mensagem de aviso de obsolescência, se definido como true.
+
+@mixin deprecate($name, $deprecate-version, $remove-version, $ignore-warning: false) {
+  // Verifica se a variável global $enable-deprecation-messages não é false e se $ignore-warning não é true.
+  // Se ambas as condições forem verdadeiras, emite um aviso indicando que o mixin ou função está obsoleto.
+  @if ($enable-deprecation-messages != false and $ignore-warning != true) {
+    @warn "#{$name} has been deprecated as of #{$deprecate-version}. It will be removed entirely in #{$remove-version}.";
+  }
+}

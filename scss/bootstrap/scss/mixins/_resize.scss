@@ -1,0 +1,6 @@
+// Resize anything
+
+@mixin resizable($direction) {
+  overflow: auto; // Conforme o CSS3 UI, `resize` só se aplica quando `overflow` não é `visible`
+  resize: $direction; // Opções: horizontal, vertical, both
+}

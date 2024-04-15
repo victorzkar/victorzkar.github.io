@@ -1,0 +1,13 @@
+// Form validation
+//
+// Forneça feedback aos usuários quando os valores dos campos do formulário forem válidos ou inválidos. Funciona
+// principalmente para validação do lado do cliente via pseudo-classes `:invalid` e `:valid`
+// mas também inclui classes `.is-invalid` e `.is-valid` para
+// validação do lado do servidor.
+
+// scss-docs-start form-validation-states-loop
+/* Itera sobre os estados de validação do formulário */
+@each $state, $data in $form-validation-states {
+  @include form-validation-state($state, $data...); /* Inclui o estado de validação do formulário */
+}
+// scss-docs-end form-validation-states-loop

@@ -1,0 +1,15 @@
+// Mixins de Imagem
+// - Imagem responsiva
+// - Imagem retina
+
+// Imagem responsiva
+//
+// Mantém as imagens de se dimensionarem além da largura de seus elementos pais.
+
+@mixin img-fluid {
+  // Parte 1: Define um máximo relativo ao elemento pai
+  max-width: 100%;
+  // Parte 2: Substitui a altura para automático, caso contrário, as imagens serão esticadas
+  // ao definir um atributo de largura e altura no elemento img.
+  height: auto;
+}

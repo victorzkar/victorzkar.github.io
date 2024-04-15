@@ -1,0 +1,13 @@
+// Este mixin color-scheme é usado para aplicar estilos com base na preferência de esquema de cores do usuário.
+// Ele envolve o conteúdo em uma regra de mídia que verifica se o esquema de cores preferido do usuário corresponde ao nome fornecido.
+// Se corresponder, o conteúdo dentro do mixin será aplicado.
+// Por exemplo, se $name for "dark", os estilos dentro do mixin só serão aplicados se o usuário preferir um esquema de cores escuro.
+// O comentário "scss-docs-start mixin-color-scheme" indica o início da documentação do mixin.
+// O comentário "scss-docs-end mixin-color-scheme" indica o fim da documentação do mixin.
+// Esta documentação pode ser usada para gerar documentação de estilo ou para ajudar
+// outros desenvolvedores a entenderem a finalidade e o uso deste mixin.
+@mixin color-scheme($name) {
+  @media (prefers-color-scheme: #{$name}) {
+    @content;
+  }
+}

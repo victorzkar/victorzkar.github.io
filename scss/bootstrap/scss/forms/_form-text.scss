@@ -1,0 +1,12 @@
+//
+// Form text
+//
+
+/* Define estilos para texto do formulário */
+.form-text {
+  margin-top: $form-text-margin-top; /* Define a margem superior */
+  @include font-size($form-text-font-size); /* Define o tamanho da fonte */
+  font-style: $form-text-font-style; /* Define o estilo da fonte */
+  font-weight: $form-text-font-weight; /* Define o peso da fonte */
+  color: $form-text-color; /* Define a cor do texto */
+}

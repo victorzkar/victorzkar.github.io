@@ -1,0 +1,17 @@
+/* Itera sobre cada cor do tema */
+@each $color, $value in $theme-colors {
+  /* Define estilos para links com a cor específica */
+  .link-#{$color} {
+    color: $value; /* Define a cor do texto */
+
+    /* Verifica se a porcentagem de sombreamento do link não é zero */
+    @if $link-shade-percentage != 0 {
+      /* Define estilos para hover e foco do link */
+      &:hover,
+      &:focus {
+        /* Verifica o contraste de cor e aplica sombreamento ou tonalidade conforme necessário */
+        color: if(color-contrast($value) == $color-contrast-light, shade-color($value, $link-shade-percentage), tint-color($value, $link-shade-percentage));
+      }
+    }
+  }
+}

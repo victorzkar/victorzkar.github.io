@@ -1,0 +1,8 @@
+// Texto truncado
+// Requer inline-block ou block para estilização adequada
+
+@mixin text-truncate() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

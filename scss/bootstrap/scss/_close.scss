@@ -1,0 +1,55 @@
+.btn-close {
+  /* Define estilos para um botão de fechar */
+  box-sizing: content-box;
+  /* Define como a largura e a altura do elemento são calculadas */
+  width: $btn-close-width;
+  /* Define a largura do botão de fechar usando uma variável chamada $btn-close-width */
+  height: $btn-close-height;
+  /* Define a altura do botão de fechar usando uma variável chamada $btn-close-height */
+  padding: $btn-close-padding-y $btn-close-padding-x;
+  /* Define o preenchimento vertical e horizontal do botão de fechar usando variáveis $btn-close-padding-y e $btn-close-padding-x */
+  color: $btn-close-color;
+  /* Define a cor do texto do botão de fechar usando uma variável chamada $btn-close-color */
+  background: transparent escape-svg($btn-close-bg) center / $btn-close-width auto no-repeat;
+  /* Define o plano de fundo do botão de fechar usando uma imagem SVG em uma posição central e uma largura definida pela variável $btn-close-width */
+  border: 0;
+  /* Define a borda do botão como zero para elementos de botão */
+  @include border-radius();
+  /* Aplica um raio de borda definido em algum outro lugar do código */
+  opacity: $btn-close-opacity;
+  /* Define a opacidade do botão de fechar usando uma variável chamada $btn-close-opacity */
+
+  /* Override o estilo de hover de <a> */
+  &:hover {
+    color: $btn-close-color;
+    /* Define a cor do texto ao passar o mouse sobre o botão */
+    text-decoration: none;
+    /* Remove o sublinhado ao passar o mouse sobre o botão */
+    opacity: $btn-close-hover-opacity;
+    /* Define a opacidade ao passar o mouse sobre o botão usando uma variável chamada $btn-close-hover-opacity */
+  }
+
+  &:focus {
+    outline: 0;
+    /* Remove a borda de foco */
+    box-shadow: $btn-close-focus-shadow;
+    /* Define uma sombra ao botão quando está em foco */
+    opacity: $btn-close-focus-opacity;
+    /* Define a opacidade quando o botão está em foco usando uma variável chamada $btn-close-focus-opacity */
+  }
+
+  &:disabled,
+  &.disabled {
+    pointer-events: none;
+    /* Não permite eventos de ponteiro quando o botão está desabilitado */
+    user-select: none;
+    /* Não permite a seleção de texto quando o botão está desabilitado */
+    opacity: $btn-close-disabled-opacity;
+    /* Define a opacidade quando o botão está desabilitado usando uma variável chamada $btn-close-disabled-opacity */
+  }
+}
+
+.btn-close-white {
+  filter: $btn-close-white-filter;
+  /* Define um filtro para a variação branca do botão de fechar usando uma variável chamada $btn-close-white-filter */
+}

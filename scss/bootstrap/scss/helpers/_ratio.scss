@@ -1,0 +1,27 @@
+/* Define uma classe para elementos com proporção */
+.ratio {
+  position: relative; /* Define a posição como relativa */
+  width: 100%; /* Define a largura como 100% */
+
+  &::before {
+    display: block; /* Exibe como bloco */
+    padding-top: var(--#{$variable-prefix}aspect-ratio); /* Define o preenchimento superior conforme a proporção */
+    content: ""; /* Conteúdo vazio */
+  }
+
+  > * {
+    position: absolute; /* Define a posição como absoluta */
+    top: 0; /* Alinha ao topo */
+    left: 0; /* Alinha à esquerda */
+    width: 100%; /* Define a largura como 100% */
+    height: 100%; /* Define a altura como 100% */
+  }
+}
+
+/* Itera sobre os ratios de aspecto */
+@each $key, $ratio in $aspect-ratios {
+  /* Define a classe para uma proporção específica */
+  .ratio-#{$key} {
+    --#{$variable-prefix}aspect-ratio: #{$ratio}; /* Define a variável de aspect ratio */
+  }
+}
